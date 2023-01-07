@@ -13,20 +13,32 @@ class Commands(commands.Cog):
 
     @commands.command(name="echo")
     async def _echo(self, ctx: commands.Context, *, msg: str):
-        await ctx.channel.send(msg)
+        await ctx.send(msg)
 
     @commands.command(name="peppa")
     async def _peppa(self, ctx: commands.Context):
-        await ctx.channel.send("https://i.guim.co.uk/img/media/97ef1652ca36d1c2e553628ffca8cf95e6d01c03/470_814_4479_2688/master/4479.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=0db16315b50eb20f7325a1e8920afd08")
+        await ctx.send("https://i.guim.co.uk/img/media/97ef1652ca36d1c2e553628ffca8cf95e6d01c03/470_814_4479_2688/master/4479.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=0db16315b50eb20f7325a1e8920afd08")
 
     @commands.command(name="roll")
     async def _roll(self, ctx: commands.Context):
-        await ctx.channel.send(f"Wyrzuciles: {random.randint(1, 6)}!")
+        await ctx.send(f"Wyrzuciles: {random.randint(1, 6)}!")
 
     @commands.command(name="ping")
     async def _ping(self, ctx: commands.Context):
-        await ctx.channel.send(f"Pong! {self.bot.latency * 1000:.2f}ms")
+        await ctx.send(f"Pong! {self.bot.latency * 1000:.2f}ms")
 
+    @commands.command(name="sendimage")
+    async def _obrazek(self, ctx: commands.Context):
+        with open(r"images/image.png", "rb") as image:
+            file = nextcord.File(image)
+            await ctx.send(file=file)
+    
+    @commands.command(name="random")
+    async def _random(self, ctx: commands.Context, a: int = 1, b: int = 10):
+        if a < b:
+            await ctx.send(f"Twoja randomowa liczba w przedziale ({a:,}, {b:,}) to {random.randint(a, b):,}")
+        else:
+            await ctx.send(f"Pierwsza liczba ({a:,}) jest wieksza od drugiej liczby ({b:,}).")
 
 def setup(bot):
     bot.add_cog(Commands(bot))
