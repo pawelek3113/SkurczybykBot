@@ -1,5 +1,4 @@
 import nextcord
-from nextcord import client
 from nextcord.ext import commands
 import random
 
@@ -26,7 +25,7 @@ class Commands(commands.Cog):
 
     @commands.command(name="ping")
     async def _ping(self, ctx: commands.Context):
-        await ctx.channel.send(f"Pong! {client.latency * 1000:.2f}ms")
+        await ctx.channel.send(f"Pong! {self.bot.latency * 1000:.2f}ms")
 
 
 def setup(bot):
