@@ -34,11 +34,23 @@ class Commands(commands.Cog):
             await ctx.send(file=file)
     
     @commands.command(name="random")
-    async def _random(self, ctx: commands.Context, a: int = 1, b: int = 10):
-        if a < b:
-            await ctx.send(f"Twoja randomowa liczba w przedziale ({a:,}, {b:,}) to {random.randint(a, b):,}")
+    async def _random(self, ctx: commands.Context, a: int = None, b: int = None):
+        if a == 0:
+            await ctx.send(f"Nie moge wylosowac liczby.")
+            return
+        if a is None: #and b is None 
+            await ctx.send(f"Losowa liczba w przedziale ⟨0, 10⟩ to {random.randint(0, 10):,}")
+            return
+        if a < 0:
+            await ctx.send(f"Losowa liczba w przedziale ⟨{a:,}, 0⟩ to {random.randint(a, 0):,}")
+        if b != None:
+            if a > b:
+                await ctx.send(f"Pierwsza liczba ({a:,}) jest wieksza od drugiej ({b:,}), wiec nie moge wylosowac liczby")
+                return
+            await ctx.send(f"Losowa liczba w przedziale ⟨{a:,}, {b:,}⟩ to {random.randint(a, b):,}")
         else:
-            await ctx.send(f"Pierwsza liczba ({a:,}) jest wieksza od drugiej liczby ({b:,}).")
+            await ctx.send(f"Losowa liczba w przedziale ⟨0, {a}⟩ to {random.randint(0, a):,}")
+            return           
 
 def setup(bot):
     bot.add_cog(Commands(bot))
