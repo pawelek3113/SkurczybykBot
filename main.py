@@ -14,8 +14,10 @@ class Bot(commands.Bot):
 
     async def on_ready(self):
         print(f"Logged in as {self.user.name}, ID: {self.user.id}")
-
-
+        await self.change_presence(status=nextcord.Status.idle, activity=nextcord.Game("with yo mama"))
+    
+    
+        
 intents = nextcord.Intents.all()
 # intents.message_content = True
 bot = Bot(command_prefix="!", case_insensitive=True, intents=intents)
